@@ -1,23 +1,9 @@
-'use client'
-
-import { useEffect, useState } from "react"
 import { FaSun, FaMoon } from 'react-icons/fa';
-import { useTheme } from 'next-themes'
-type ThemeProps = 'light' | 'dark' | 'system';
+import { useToggleTheme } from './useToggleTheme';
+
+
 const ButtonToggleTheme: React.FC = () => {
-  const { setTheme, theme } = useTheme()
-  const toggleTheme = () => {
-    const t: ThemeProps = theme === 'light' ? 'dark' : 'light';
-    setTheme(t);
-  };
-  useEffect(() => {
-    if (theme === 'light') {
-      setTheme('light')
-    } else {
-      setTheme('dark')
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [theme]);
+  const { toggleTheme } = useToggleTheme()
   return (
     <button
       type='button'
