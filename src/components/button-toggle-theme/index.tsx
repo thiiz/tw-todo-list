@@ -1,6 +1,6 @@
+'use client'
 import { FaSun, FaMoon } from 'react-icons/fa';
 import { useToggleTheme } from './useToggleTheme';
-
 
 const ButtonToggleTheme: React.FC = () => {
   const { toggleTheme } = useToggleTheme()
