@@ -10,7 +10,7 @@ module.exports = {
     extend: {
       backgroundColor: {
         "dark-p": "#1d1d1d",
-        "light-p": "#fcfcfc"
+        "light-p": "#F5F9FF"
       },
       textColor: {
         "dark-p": "#fcfcfc",
