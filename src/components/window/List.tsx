@@ -1,41 +1,49 @@
 'use client'
 
 import { inter } from '@/fonts';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { ItemsProps } from '.';
 import { useDate } from './useDate';
-import { useForm } from 'react-hook-form';
+import { FcAlarmClock, FcCalendar, FcClock, FcOvertime } from 'react-icons/fc'
+import { MdTimerOff } from 'react-icons/md'
 
 const List: React.FC<{ items: ItemsProps, setItems: Dispatch<SetStateAction<any>> }> = ({ items, setItems }) => {
   const date = new Date(items.date);
   const { formatedDate } = useDate(date)
-  const { register, handleSubmit, setFocus, setValue, formState: { errors } } = useForm({ defaultValues: { input: items.todo } })
 
-  const handleInputChange = (e: any) => {
-    const { name, value } = e.target
-    setValue(name, value)
-  }
 
-  const handleEditTodo = () => {
-    setFocus('input')
-    return
-  }
-
+  const handleInputChange = (e: React.ChangeEvent<HTMLSpanElement>) => {
+    setItems((prev: any) =>
+      prev.map((item: any) =>
+        item.id === items.id ? { ...item, todo: e.target.innerText } : item
+      )
+    );
+  };
   const handleCheckboxChange = (id: any) => {
+    const today = new Date();
+    const diffTime = Math.abs(date.getTime() - today.getTime());
+    const diffDate = new Date(diffTime);
+    const hour = today.getHours().toString().padStart(2, "0");
+    const minute = today.getMinutes().toString().padStart(2, "0");
+    const day = today.getDate().toString().padStart(2, "0");
+    const month = (today.getMonth() + 1).toString().padStart(2, "0");
+    const year = today.getFullYear().toString().slice(2);
+
     setItems((prevItems: any) =>
       prevItems.map((item: any) => {
         if (item.id === id) {
           return {
             ...item,
-            completed: !item.completed
+            completed: !item.completed,
+            finished: `${hour}:${minute} - ${day}/${month}/${year}`,
+            duration: diffDate.toISOString().substring(11, 19)
           };
         }
         return item;
       })
     )
   };
-  const onSubmit = () => {
-  }
+
   return (
     <ul className='flex gap-y-5'>
       <li className={`
@@ -49,7 +57,7 @@ const List: React.FC<{ items: ItemsProps, setItems: Dispatch<SetStateAction<any>
             type="checkbox"
             className="absolute h-0 w-0 opacity-0"
             checked={items.completed}
-            onChange={() => handleCheckboxChange(items?.id)}
+            onChange={() => handleCheckboxChange(items.id)}
           />
           <div
             className="h-7 w-7
@@ -71,11 +79,12 @@ const List: React.FC<{ items: ItemsProps, setItems: Dispatch<SetStateAction<any>
           <div className='max-w-lg'>
             <span
               contentEditable={!items.completed}
-              onChange={handleInputChange}
+              onBlur={handleInputChange}
               className={
                 `${inter.className}
-              ${items.completed ? 'line-through text-[#8F98A8]' : ''}
-              bg-transparent
+              ${items.completed ? 'line-through text-[#8F98A8]' : 'hover:bg-slate-300 dark:hover:bg-slate-900 cursor-pointer'}
+              inline-block
+              w-full
               outline-1
               outline-offset-6
               tracking-2
@@ -86,18 +95,62 @@ const List: React.FC<{ items: ItemsProps, setItems: Dispatch<SetStateAction<any>
               rounded-lg
               break-words
               p-1
+              transition-colors
+              ease-in-out
               `} >{items.todo}</span>
           </div>
           <div className={`${items.completed ? 'text-[#8F98A8]' : ''}
-            text-gray-500 text-sm`}>
-            <span className='antialiased font-bold text-inherit'>Created: </span>
-            <span className={`
+            text-gray-500
+            text-sm
+            inline-flex
+            item-center
+            gap-x-3
+            `}>
+            <div className='flex items-center flex-nowrap gap-x-1'>
+              <FcCalendar />
+              <span className='antialiased font-bold text-inherit'>Created: </span>
+              <span className={`
+            text-inherit
+            font-semibold
+            antialiased
+            pr-3
+            ${items.completed ? 'border-r' : ''}
+            border-x-[#afb2b9]
+            dark:border-x-[#383838]
+            `
+              }>{formatedDate}
+              </span>
+            </div>
+            {items.completed &&
+              <>
+                <div className='flex items-center flex-nowrap gap-x-1'>
+                  <FcOvertime />
+                  <span className='antialiased font-bold text-inherit'>Finished: </span>
+                  <span className={`
+            text-inherit
+            font-semibold
+            antialiased
+            pr-3
+            border-r
+            border-x-[#afb2b9]
+            dark:border-x-[#383838]
+            `
+                  }>{items.finished}
+                  </span>
+                </div>
+                <div className='flex items-center flex-nowrap gap-x-1'>
+                  <FcAlarmClock />
+                  <span className='antialiased font-bold text-inherit'>Duration: </span>
+                  <span className={`
             text-inherit
             font-semibold
             antialiased
             `
-            }>{formatedDate}
-            </span>
+                  }>{items.duration}
+                  </span>
+                </div>
+              </>
+            }
           </div>
         </div>
       </li>

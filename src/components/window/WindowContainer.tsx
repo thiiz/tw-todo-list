@@ -10,11 +10,9 @@ const WindowContainer: React.FC<{ children: ReactNode }> = ({ children }) => {
     dark:bg-black
     drop-shadow-xl
     py-[4.31rem]
-    px-[2.5rem]
-    sm:px-[8.5rem]
-    lg:px-[13.5rem]
-    overflow-auto
-    ">
+    px-[1.5rem]
+    sm:px-[5rem]
+    lg:px-[12rem]">
       {children}
     </div>
   )
