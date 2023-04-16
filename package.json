@@ -10,6 +10,7 @@
     "tw": "tailwindcss -i ./src/app/styles/globals.css -o ./dist/output.css --watch"
   },
   "dependencies": {
+    "@ctrl/react-adsense": "^1.6.2",
     "@types/node": "18.15.11",
     "@types/react": "18.0.34",
     "@types/react-dom": "18.0.11",
@@ -20,6 +21,7 @@
     "next-themes": "^0.2.1",
     "postcss": "8.4.21",
     "react": "18.2.0",
+    "react-adsense": "^0.1.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0",
