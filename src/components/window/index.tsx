@@ -26,6 +26,7 @@ const Window = () => {
   }, [])
   useEffect(() => {
     console.log(items)
+    if (items.length === 0) return localStorage.removeItem('ToDo')
     items.sort((a: ItemsProps, b: ItemsProps) => a.date - b.date)
     localStorage.setItem("ToDo", JSON.stringify(items))
   }, [items])
