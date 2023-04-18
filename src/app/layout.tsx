@@ -45,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-br" className='md:text-[100%] text-[80%]'>
+    <html lang="pt-br" className='text-[55%] sm:text-[75%] md:text-[85%] lg:text-[100%]'>
       <body className={
         `${inter.className}
       h-screen

@@ -49,7 +49,8 @@ const List: React.FC<{ items: ItemsProps, setItems: Dispatch<SetStateAction<any>
       <li className={`
       flex
       items-center
-      gap-x-5
+      gap-x-3
+      sm:gap-x-5
       ${items.completed ? 'opacity-70' : ''}
       `}>
         <label className="relative flex items-center cursor-pointer">
@@ -60,7 +61,9 @@ const List: React.FC<{ items: ItemsProps, setItems: Dispatch<SetStateAction<any>
             onChange={() => handleCheckboxChange(items.id)}
           />
           <div
-            className="h-7 w-7
+            className="
+           sm:h-7 sm:w-7
+           h-[23px] w-[23px]
            rounded-full border-2
           border-gray-300
             dark:border-gray-600
@@ -68,7 +71,10 @@ const List: React.FC<{ items: ItemsProps, setItems: Dispatch<SetStateAction<any>
             justify-center"
           >
             {items.completed && (
-              <div className=" w-4 h-4 rounded-full bg-teal-500"></div>
+              <div className="
+              w-[11px] h-[11px]
+              sm:w-4 sm:h-4
+              rounded-full bg-teal-500"></div>
             )}
           </div>
         </label>

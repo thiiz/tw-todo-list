@@ -5,10 +5,10 @@ const ListContainer: React.FC<{ children: ReactNode }> = ({ children }) => {
     <div className='flex
     flex-col
     gap-y-5
-    mt-12
+    mt-8
+    sm:mt-12
     overflow-y-scroll
-    max-h-[23.3rem]
-    min-h-[23.3rem]
+    h-[69%]
     scrollbar-thin
     scrollbar-thumb-zinc-600
     scrollbar-track-zinc-300

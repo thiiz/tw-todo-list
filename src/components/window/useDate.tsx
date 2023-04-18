@@ -16,7 +16,7 @@ const useDate = (date: Date) => {
   } else if (diffDays === 1) {
     return { formatedDate: "yesterday" };
   } else {
-    return { formatedDate: `${hour}:${minute} - ${month}/${day}/${year}` }
+    return { formatedDate: `${hour}:${minute} - ${month}/${day}/${year.toString().slice(2)}` }
   }
 }
 
